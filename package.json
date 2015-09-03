@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/rearwheeldrive/turbobreaker/issues"
   },
-  "homepage": "https://github.com/rearwheeldrive/turbobreaker#readme"
+  "homepage": "https://github.com/rearwheeldrive/turbobreaker#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
 }
