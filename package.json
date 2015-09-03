@@ -1,7 +1,7 @@
 {
   "name": "turbobreaker",
   "version": "0.0.1",
-  "description": "Pipes circuit-breaker metrics to turbine.",
+  "description": "Exposes circuit breaker metrics through a Hystrix compliant stream",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

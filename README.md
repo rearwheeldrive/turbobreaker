@@ -1,7 +1,7 @@
 # turbobreaker 
 [![npm version](https://badge.fury.io/js/turbobreaker.svg)](http://badge.fury.io/js/turbobreaker) [![Build Status](https://api.travis-ci.org/rearwheeldrive/turbobreaker.svg)](https://travis-ci.org/rearwheeldrive/turbobreaker) [![Coverage Status](https://coveralls.io/repos/rearwheeldrive/turbobreaker/badge.svg?branch=master&service=github)](https://coveralls.io/github/rearwheeldrive/turbobreaker?branch=master) [![Dependency Status](https://david-dm.org/rearwheeldrive/turbobreaker.svg)](https://david-dm.org/rearwheeldrive/turbobreaker)
 
-Takes circuit breaker metrics and pipes them to turbine.
+Exposes circuit breaker metrics through a Hystrix-compliant stream.
 
 ## Usage
 
