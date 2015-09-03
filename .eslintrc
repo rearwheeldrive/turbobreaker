@@ -1,0 +1,13 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0,
+    "indent": [2, 2],
+    "no-trailing-spaces": 0,
+    "prefer-reflect": 0
+  },
+  "env": {
+    "mocha": true,
+    "node": true
+  }
+}

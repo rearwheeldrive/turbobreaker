@@ -26,6 +26,17 @@
   },
   "homepage": "https://github.com/rearwheeldrive/turbobreaker#readme",
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "babel": "^5.8.23",
+    "babel-eslint": "^4.1.1",
+    "babel-istanbul": "^0.3.19",
+    "coveralls": "^2.11.4",
+    "eslint": "^1.3.1",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-eslint": "^1.0.0",
+    "gulp-istanbul": "^0.10.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-tape": "0.0.3",
+    "tape": "^4.2.0"
   }
 }
