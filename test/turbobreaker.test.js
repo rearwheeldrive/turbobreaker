@@ -1,4 +1,3 @@
-var test = true;
 import test from 'tape';
 import {TurboBreaker} from '../src/turbobreaker';
 import EventSource from 'eventsource';

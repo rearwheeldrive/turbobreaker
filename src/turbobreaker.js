@@ -1,4 +1,3 @@
-var test = true;
 import http from 'http';
 import {parse} from 'url';
 import 'es6-collections';
