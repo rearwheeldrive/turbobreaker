@@ -13,6 +13,7 @@ export class TurboBreaker {
       callback = config;
       config = {};
     }
+    this.config = config;
     this.server = this.createServer(callback);
   }
 
@@ -41,7 +42,7 @@ export class TurboBreaker {
 
         res.write("\n");
 
-        res.on('finish', () => {
+        req.on('close', () => {
           clients.delete(res);
         });
 
@@ -52,7 +53,7 @@ export class TurboBreaker {
         res.end();
       }
     });
-    server.listen(8080, callback);
+    server.listen(this.config.port || 8080, callback);
     return server;
   }
 }

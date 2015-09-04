@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/rearwheeldrive/turbobreaker#readme",
   "devDependencies": {
+    "async": "^1.4.2",
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.1",
     "babel-istanbul": "^0.3.19",
