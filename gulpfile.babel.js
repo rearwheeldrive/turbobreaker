@@ -1,7 +1,6 @@
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import {Instrumenter} from 'babel-istanbul';
-import tapSpec from 'tap-spec';
 
 const $ = gulpLoadPlugins();
 
