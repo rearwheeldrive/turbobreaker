@@ -1,8 +1,65 @@
+var test = true;
 import test from 'tape';
 import {TurboBreaker} from '../src/turbobreaker';
+import EventSource from 'eventsource';
+import http from 'http';
+import fetch from 'node-fetch';
 
-test('it should pass', t => {
-  console.log('hi');
-  t.pass('it passes');
+test('exposes a TurboBreaker class', t => {
+  t.ok(TurboBreaker, 'TurboBreaker is defined');
+  t.equal(typeof TurboBreaker, 'function');
+  t.throws(() => {
+    TurboBreaker();
+  });
   t.end();
+});
+
+test('creates an HTTP server', t => {
+  const turbo = new TurboBreaker(() => {
+    t.ok(turbo.server, 'has an internal server property');
+    t.ok(turbo.server instanceof http.Server, 'should be an instance of http.Server');
+    fetch('http://localhost:8080/').then((res) => {
+      t.equal(res.status, 404, 'should respond with a 404');
+      t.end();
+      turbo.stop();
+    });
+  });
+});
+
+test('closes the HTTP server with the "stop" method', t => {
+  const turbo = new TurboBreaker(() => {
+    turbo.server.on('close', () => {
+      t.pass('server close event was emitted');
+      t.end();
+    });
+    turbo.stop();
+  });
+});
+
+test('emits a server-sent event via the "command" method', t => {
+  const expected = {
+    hello: 'TurboBreaker',
+    working: true
+  };
+  const turbo = new TurboBreaker(() => {
+    var es = new EventSource('http://localhost:8080/hystrix.stream');
+    es.onmessage = function(e) {
+      t.deepEqual(JSON.parse(e.data), expected, 'data payload should be equal');
+      t.end();
+      es.close();
+      turbo.stop();
+    };
+
+    es.onerror = function() {
+      t.fail('Unexpected error occured.');
+      t.end();
+    };
+
+    // Allow eventsource to connect:
+    setTimeout(function() {
+      turbo.command(expected);
+    }, 10);
+  });
+
+  t.ok(turbo.command, 'TurboBreaker#command is defined');
 });

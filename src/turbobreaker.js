@@ -1,18 +1,39 @@
+var test = true;
 import http from 'http';
 import {parse} from 'url';
+import 'es6-collections';
 
 const HYSTRIX_STREAM_PATH = '/hystrix.stream';
 
+const clients = new Set();
+const noop = () => {};
+
 export class TurboBreaker {
-  constructor(config = {}) {
-    if (!config.httpServer) {
-      config.httpServer = this.createServer();
+  constructor(config = {}, callback = noop) {
+    if (typeof config === 'function') {
+      callback = config;
+      config = {};
     }
     this.server = config.httpServer;
+    if (!this.server) {
+      this.server = this.createServer(callback);
+    } else {
+      callback();
+    }
   }
 
-  createServer() {
-    var server = http.createServer((req, res) => {
+  command(data) {
+    clients.forEach(res => {
+      res.write("data: " + JSON.stringify(data) + "\n\n");
+    });
+  }
+
+  stop() {
+    this.server.close();
+  }
+
+  createServer(callback) {
+    const server = http.createServer((req, res) => {
       const path = parse(req.url).path;
       if (path === HYSTRIX_STREAM_PATH) {
         // Stop the connection from timing out:
@@ -26,15 +47,18 @@ export class TurboBreaker {
 
         res.write("\n");
 
-        function sendSse(data) {
-          res.write("data: " + JSON.stringify(data) + "\n\n");
-        }
+        res.on('finish', () => {
+          clients.delete(res);
+        });
+
+        clients.add(res);
       } else {
         // Reject the request:
         res.writeHead(404);
         res.end();
       }
     });
-    server.listen(8080);
+    server.listen(8080, callback);
+    return server;
   }
 }

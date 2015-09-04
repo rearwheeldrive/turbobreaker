@@ -1,3 +1,9 @@
 import {TurboBreaker} from './src/turbobreaker';
 
-new TurboBreaker();
+let t = new TurboBreaker();
+
+setInterval(() => {
+  t.send({
+    what: 'isup'
+  });
+}, 1000);
