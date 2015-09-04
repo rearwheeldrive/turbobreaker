@@ -10,7 +10,7 @@
     "cover:base": "NODE_ENV=test npm run base -- node_modules/.bin/isparta cover --report html node_modules/.bin/tape -- tspec",
     "coveralls": "cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "lint": "eslint src/*",
-    "test": "npm run lint && npm run test:base -- test/*.test.js -- tspec",
+    "test": "npm run test:base -- test/*.test.js -- tspec",
     "test:base": "NODE_ENV=test npm run base -- node_modules/.bin/tape"
   },
   "repository": {
