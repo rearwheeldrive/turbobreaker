@@ -16,12 +16,6 @@ npm install turbobreaker --save
 The test for the module are written using mocha and chai. To run the unit tests, you can use the gulp `test` task:
 
 ```shell
-gulp test
-```
-
-If you wish to have the tests watch the `src/` and `test/` directories for changes, you can use the `test:watch` gulp task:
-
-```shell
-gulp test:watch
+npm run test
 ```
 
