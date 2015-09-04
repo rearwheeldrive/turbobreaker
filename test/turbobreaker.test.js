@@ -17,10 +17,14 @@ test('creates an HTTP server', t => {
   const turbo = new TurboBreaker(() => {
     t.ok(turbo.server, 'has an internal server property');
     t.ok(turbo.server instanceof http.Server, 'should be an instance of http.Server');
-    fetch('http://localhost:8080/').then((res) => {
+    fetch('http://127.0.0.1:8080/').then((res) => {
       t.equal(res.status, 404, 'should respond with a 404');
       t.end();
       turbo.stop();
+    }, (e) => {
+      t.fail('Unknown error occured when fetching localhost.');
+      console.error(e.stack);
+      t.end();
     });
   });
 });
@@ -41,7 +45,7 @@ test('emits a server-sent event via the "command" method', t => {
     working: true
   };
   const turbo = new TurboBreaker(() => {
-    var es = new EventSource('http://localhost:8080/hystrix.stream');
+    var es = new EventSource('http://127.0.0.1:8080/hystrix.stream');
     es.onmessage = function(e) {
       t.deepEqual(JSON.parse(e.data), expected, 'data payload should be equal');
       t.end();
@@ -61,4 +65,8 @@ test('emits a server-sent event via the "command" method', t => {
   });
 
   t.ok(turbo.command, 'TurboBreaker#command is defined');
+});
+
+test('should emit the same data to multiple connected clients', t => {
+  t.end();
 });

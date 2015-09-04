@@ -13,12 +13,7 @@ export class TurboBreaker {
       callback = config;
       config = {};
     }
-    this.server = config.httpServer;
-    if (!this.server) {
-      this.server = this.createServer(callback);
-    } else {
-      callback();
-    }
+    this.server = this.createServer(callback);
   }
 
   command(data) {
